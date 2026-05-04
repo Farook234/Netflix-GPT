@@ -7,10 +7,12 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { adduser } from "../utils/Userslice";
+import { useNavigate } from "react-router-dom";
+import { LOGO } from "../utils/constants";
+import { USER_AVATAR } from "../utils/constants";
 
 const Login = () => {
   const [issigninform, setissigninform] = useState(true);
@@ -39,7 +41,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL: "https://example.com/jane-q-user/profile.jpg",
+            photoURL: USER_AVATAR,
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;
@@ -51,20 +53,16 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-              navigate("/browser");
             })
             .catch((error) => {
               seterrormessage(error.message);
             });
-
           console.log(user);
-          navigate("/browser");
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           seterrormessage(errorCode + errorMessage);
-          navigate("/");
         });
     } else {
       //sign in
@@ -77,7 +75,6 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           console.log(user);
-          navigate("/browser");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -94,7 +91,7 @@ const Login = () => {
       <Header />
       <div className="absolute">
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/5efeb1fd-55d2-4799-8d38-e59e15858b9c/web/IN-en-20260427-TRIFECTA-perspective_0933b420-0cb6-4e67-8e9d-3224dc64b517_large.jpg"
+          src={LOGO}
           alt="logo"
         />
       </div>
@@ -107,26 +104,23 @@ const Login = () => {
         </h1>
         {!issigninform && (
           <input
-            className="text-white"
             ref={name}
             type="text"
             placeholder="Full Name"
-            className="p-4 my-4 w-full bg-gray-700"
+            className="p-4 my-4 w-full bg-gray-700 text-white"
           />
         )}
         <input
-          className="text-white"
           ref={email}
           type="text"
           placeholder="Email address"
-          className="p-4 my-4 w-full bg-gray-700"
+          className="p-4 my-4 w-full bg-gray-700 text-white"
         />
         <input
-          className="text-white"
           ref={password}
           type="password"
           placeholder="Password"
-          className="p-4 my-4 w-full bg-gray-700"
+          className="p-4 my-4 w-full bg-gray-700 text-white"
         />
         <p className="text-red-500 font-bold text-lg py-3"> {errormessage} </p>
         <button
