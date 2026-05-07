@@ -1,9 +1,9 @@
 import React from 'react'
 
-const secondarycontainer = () => {
+const SecondaryContainer = () => {
   return (
     <div>secondarycontainer</div>
   )
 }
 
-export default secondarycontainer;
+export default SecondaryContainer;

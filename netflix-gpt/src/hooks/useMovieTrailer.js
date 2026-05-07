@@ -16,7 +16,7 @@ const useMovieTrailer = (movieId) => {
 
       const trailers = json.results?.filter((video) => video.type === "Trailer") || [];
 
-      dispatch(addTrailerVideo(trailers));
+      dispatch(addTrailerVideo(trailers[0]));
     } catch (error) {
       console.error("Error fetching movie videos:", error);
     }
@@ -24,7 +24,7 @@ const useMovieTrailer = (movieId) => {
 
   useEffect(() => {
     getMovieVideos();
-  }, []);
+  }, [movieId]);
 };
 
 export default useMovieTrailer;
